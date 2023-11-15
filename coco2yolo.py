@@ -66,6 +66,8 @@ class COCOConverter():
                         except:
                             continue
 
+                        lines.append(line)
+
                     elif self.conversion_mode == "segmentation":
 
                         try:
@@ -77,6 +79,8 @@ class COCOConverter():
 
                         except:
                             continue
+
+                        lines.append(line)
 
                     else:
                         print("You have entered an invalid conversion mode! Please choose 'detection' or 'segmentation' instead.")
@@ -142,6 +146,6 @@ class COCOConverter():
         print(f"Seperated Images are Saved and the process is Finished! \nSpent Time: {end_time - start_time} seconds")
 
 if __name__ == "__main__":
-    converter = COCOConverter(coco_annot_path = 'instances_val2017.json', image_path = '/home/visio-ai/Desktop/val2017/', converted_label_path = '/home/visio-ai/Desktop/project-workspace/converter_tool/dataset/labels', conversion_mode = "segmentation")
+    converter = COCOConverter(coco_annot_path = '/home/visio-ai/Desktop/task162/annotations/instances_default.json', image_path = 'task162/images/', converted_label_path = '/home/visio-ai/Desktop/project-workspace/converter_tool/labels2', conversion_mode = "detection")
     converter.from_coco_to_yolo_detect()
-    converter.train_test_valid_split()
+    # converter.train_test_valid_split()
