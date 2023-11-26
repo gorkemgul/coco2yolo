@@ -4,6 +4,11 @@ import time
 import shutil
 from tqdm import tqdm
 from addict import Dict
+import logging
+import argparse
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class COCOConverter():
     """
@@ -23,7 +28,7 @@ class COCOConverter():
         self.image_path = image_path
         self.conversion_mode = conversion_mode
 
-    def from_coco_to_yolo_detect(self):
+    def from_coco_to_yolo(self):
         with open(self.coco_annot_path, 'r') as json_file:
             data_dict = json.load(json_file)
 
@@ -146,6 +151,23 @@ class COCOConverter():
         print(f"Seperated Images are Saved and the process is Finished! \nSpent Time: {end_time - start_time} seconds")
 
 if __name__ == "__main__":
-    converter = COCOConverter(coco_annot_path = '/home/visio-ai/Desktop/task162/annotations/instances_default.json', image_path = 'task162/images/', converted_label_path = '/home/visio-ai/Desktop/project-workspace/converter_tool/labels2', conversion_mode = "detection")
-    converter.from_coco_to_yolo_detect()
+    # converter = COCOConverter(coco_annot_path = '/home/visio-ai/Desktop/task162/annotations/instances_default.json', image_path = 'task162/images/', converted_label_path = '/home/visio-ai/Desktop/project-workspace/converter_tool/labels2', conversion_mode = "detection")
+    # converter.from_coco_to_yolo_detect()
     # converter.train_test_valid_split()
+    parser = argparse.ArgumentParser(description = "Converter Tool from COCO to Yolo segmentation or detection.")
+    parser.add_argument('coco-annot-path', 'coco-anno-path', dest = "coco_annot_path", required = True, type = str, help = "Path to COCO annotations")
+    parser.add_argument('image-path', 'img-path', dest = "image_path", required = True, type = str, help = "Path to images")
+    parser.add_argument('converted-label-path', 'label-output-path', dest = "converted_label_path", required = True, type = str, help = "Path to save converted labels.")
+    parser.add_argument('conversion-mode', 'conv-mode', dest = "conversion_mode", required = True, type = str, help = "Mode to choose whether to convert yolo segmentation or yolo detection")
+    args = parser.parse_args()
+
+    converter = COCOConverter(
+        coco_annot_path = args.coco_annot_path,
+        image_path = args.image_path,
+        converted_label_path = args.converted_label_path,
+        conversion_mode = args.conversion_mode
+    )
+
+    converter.from_coco_to_yolo()
+    # TODO: Add argument to control splitting as well.
+
