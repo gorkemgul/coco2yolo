@@ -155,10 +155,10 @@ if __name__ == "__main__":
     # converter.from_coco_to_yolo_detect()
     # converter.train_test_valid_split()
     parser = argparse.ArgumentParser(description = "Converter Tool from COCO to Yolo segmentation or detection.")
-    parser.add_argument('coco-annot-path', 'coco-anno-path', dest = "coco_annot_path", required = True, type = str, help = "Path to COCO annotations")
-    parser.add_argument('image-path', 'img-path', dest = "image_path", required = True, type = str, help = "Path to images")
-    parser.add_argument('converted-label-path', 'label-output-path', dest = "converted_label_path", required = True, type = str, help = "Path to save converted labels.")
-    parser.add_argument('conversion-mode', 'conv-mode', dest = "conversion_mode", required = True, type = str, help = "Mode to choose whether to convert yolo segmentation or yolo detection")
+    parser.add_argument('--coco-annot-path', '--coco-anno-path', dest = "coco_annot_path", required = True, type = str, help = "Path to COCO annotations")
+    parser.add_argument('--image-path', '--img-path', dest = "image_path", required = True, type = str, help = "Path to images")
+    parser.add_argument('--converted-label-path', '--label-output-path', dest = "converted_label_path", required = True, type = str, help = "Path to save converted labels.")
+    parser.add_argument('--conversion-mode', '--conv-mode', dest = "conversion_mode", required = True, type = str, help = "Mode to choose whether to convert yolo segmentation or yolo detection")
     args = parser.parse_args()
 
     converter = COCOConverter(
